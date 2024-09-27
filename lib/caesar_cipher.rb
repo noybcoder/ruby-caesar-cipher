@@ -1,11 +1,16 @@
-def caesar_cipher(plaintext, key=3)
-  plaintext.bytes.reduce('') do |ciphertext, byte|
-    if byte.between?(65, 90) || byte.between?(97, 122)
-      reference_byte = byte < 90? 65: 97
-      ciphertext << (reference_byte + (byte - reference_byte + key) % 26).chr
-    else
-      ciphertext << byte.chr
+class CaesarCipher
+  def encrypt(plaintext, key=3)
+    plaintext.bytes.reduce('') do |ciphertext, byte|
+      if byte.between?(65, 90) || byte.between?(97, 122)
+        reference_byte = byte < 90? 65: 97
+        ciphertext << (reference_byte + (byte - reference_byte + key) % 26).chr
+      else
+        ciphertext << byte.chr
+      end
+      ciphertext
     end
-    ciphertext
   end
 end
+
+c = CaesarCipher.new
+puts c.encrypt('Knock knock. Who is there?', -88193)
